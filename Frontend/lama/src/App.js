@@ -1,10 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
+import { Nav } from './components/Nav';
 
 function App() {
   return (
-    <div className="App">
-      <p className="text-3xl font-bold underline">Lama</p>
+    <div className=" max-w-7xl m-auto">
+      <Nav/>
     </div>
   );
 }
