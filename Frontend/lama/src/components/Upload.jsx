@@ -28,7 +28,7 @@ export const Upload = () => {
 
   useEffect(() => {
     let projectId = JSON.parse(sessionStorage.getItem("projectId"));
-    let files = projects.find(el=>el._id===projectId).files
+    let files = projects.find(el=>el._id===projectId).files;
     setFiles(files);
     setProjectId(projectId)
     console.log(files)

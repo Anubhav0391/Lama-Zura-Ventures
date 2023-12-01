@@ -63,9 +63,8 @@ export const CreateNew = () => {
     }
   }
 
-  function handleSingleProject(files,id){
-    sessionStorage.setItem('files',JSON.stringify(files))
-    sessionStorage.setItem('projectId',JSON.stringify(id))
+  function handleSingleProject(id){
+    localStorage.setItem('projectId',JSON.stringify(id))
     navigate('/singleProject')
   }
 
