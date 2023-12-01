@@ -23,7 +23,7 @@ export const CreateNew = () => {
   const [Alert, setAlert] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const { isloading, projects } = useSelector((state) => state);
+  const { isLoading, projects } = useSelector((state) => state);
   const navigate=useNavigate();
 
   const colors = [
@@ -63,17 +63,22 @@ export const CreateNew = () => {
     }
   }
 
-  function handleSingleProject(files){
+  function handleSingleProject(files,id){
     sessionStorage.setItem('files',JSON.stringify(files))
+    sessionStorage.setItem('projectId',JSON.stringify(id))
     navigate('/singleProject')
   }
-console.log(projects)
+
   useEffect(() => {
-    dispatch(getProjects());
+    dispatch(getProjects())
   }, []);
 
-  return isloading ? (
-    "Loading..."
+  return isLoading ? (
+    <div className=" grid  md:grid-cols-2 lg:grid-cols-3 2xl:gap-x-24 md:gap-x-10 gap-y-14">
+      {[0,0,0,0,0,0,0,0,0,0].map(el=><div
+    className="inline-block h-40 animate-[spinner-grow_0.75s_linear_infinite] bg-current align-[-0.125em] opacity-0 motion-reduce:animate-[spinner-grow_1.5s_linear_infinite]"
+    role="status"></div>)}
+    </div>
   ) : projects ? (
     <div className=" w-10/12 m-auto">
       <div className=" flex w-full justify-between items-center my-8">
@@ -132,7 +137,7 @@ console.log(projects)
           <div
             key={el._id}
             className=" cursor-pointer w-full flex items-center space-x-2 rounded-2xl shadow-lg ring-1 ring-gray-400"
-            onClick={()=>handleSingleProject(el.files)}
+            onClick={()=>handleSingleProject(el.files,el._id)}
           >
             <div
               className={`text-center h-24 m-2 text-white w-24 text-6xl rounded-2xl flex items-center justify-center`}

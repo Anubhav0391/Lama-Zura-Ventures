@@ -5,8 +5,8 @@ export const Sidebar = () => {
   const [active, setActive] = useState("projects");
 
   return (
-    <div className=" w-[25%] ring-1 p-10 bg-[#F3E8FF]">
-      <img src="lama-logo.PNG" alt="lama-logo" className=" w-36" />
+    <div className=" w-[25%] p-10 bg-[#F3E8FF] ">
+      <img src="lama-logo-violet.PNG" alt="lama-logo" className=" w-36" />
       <p className=" my-5">Podcast Upload Flow</p>
       <div>
         <div className={` flex items-center space-x-3 font-bold p-3 rounded-full hover:bg-[#e3d8f1] ${active=='projects'?'bg-[#7E22CE] hover:bg-[#7E22CE] text-white':''}`} onClick={()=>setActive('projects')}>
