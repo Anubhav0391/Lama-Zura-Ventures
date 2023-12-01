@@ -1,10 +1,9 @@
 import { Card, Typography } from "@material-tailwind/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export function Table({ rows, setRows }) {
   const head = ["Name", "Uploaded Date & Time", "Status", "Actions"];
-  const [edit,setEdit]=useState(false)
 
   function handleDelete(id) {
     axios
@@ -90,7 +89,7 @@ export function Table({ rows, setRows }) {
                     className="font-normal"
                   >
                     <div className="flex items-center cursor-pointer">
-                      <p className=" ring-1 ring-gray-400  p-3" onClick={()=>setEdit(true)}>Edit</p>
+                      <p className=" ring-1 ring-gray-400  p-3">Edit</p>
                       <p
                         className=" text-red-500 ring-1 ring-gray-400  p-3"
                         onClick={() => handleDelete(_id)}

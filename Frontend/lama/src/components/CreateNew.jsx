@@ -64,7 +64,7 @@ export const CreateNew = () => {
   }
 
   function handleSingleProject(id){
-    localStorage.setItem('projectId',JSON.stringify(id))
+    sessionStorage.setItem('projectId',JSON.stringify(id))
     navigate('/singleProject')
   }
 
@@ -136,7 +136,7 @@ export const CreateNew = () => {
           <div
             key={el._id}
             className=" cursor-pointer w-full flex items-center space-x-2 rounded-2xl shadow-lg ring-1 ring-gray-400"
-            onClick={()=>handleSingleProject(el.files,el._id)}
+            onClick={()=>handleSingleProject(el._id)}
           >
             <div
               className={`text-center h-24 m-2 text-white w-24 text-6xl rounded-2xl flex items-center justify-center`}
