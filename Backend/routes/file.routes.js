@@ -20,6 +20,7 @@ fileRouter.post("/:id", async (req, res) => {
   }
 });
 
+
 fileRouter.patch('/:id', async (req, res) => {
     try {
       await FileModal.findByIdAndUpdate(
