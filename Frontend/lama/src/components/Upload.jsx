@@ -64,15 +64,21 @@ export const Upload = () => {
       <div className="flex items-center justify-between w-11/12 m-auto">
         <p className=" flex text-3xl text-gray-400">
           <MdOutlineHome fontSize={35} color="#7E22CE" /> /SampleProject /{" "}
-          <span className=" text-[#7E22CE]"> Upload</span>{" "}
+          <span className=" text-[#7E22CE]"> {desc?'Transcript':'Upload'}</span>{" "}
         </p>
         <p>
           <IoMdNotificationsOutline fontSize={35} />
         </p>
       </div>
       <h1 className=" text-5xl font-bold text-[#7E22CE] my-8 w-11/12 m-auto">
-        Upload
+        {desc?'Edit Transcript':'Upload'}
       </h1>
+     { desc?<><textarea className=" w-11/12 block m-auto h-3/5 ring-1" value={desc} onChange={(e)=>setDesc(e.target.value)}>
+
+     </textarea>
+     <div className="flex justify-end w-11/12 m-auto">
+     <button className=" text-white bg-black px-5 py-3 rounded-lg mt-10" >Edit</button></div>
+     </>:<div>
       <div className=" grid  md:grid-cols-2 lg:grid-cols-3 2xl:gap-x-20 md:gap-x-10 gap-y-10 w-11/12 m-auto">
         <div
           className=" cursor-pointer w-full flex items-center space-x-2 rounded-2xl shadow-lg ring-1 ring-gray-400"
@@ -126,7 +132,7 @@ export const Upload = () => {
           </div>
         </div>
       </div>
-      {files?.length?<Table rows={files} setRows={setFiles}/>:<div>
+      {files?.length?<Table rows={files} setRows={setFiles} setEdit={setDesc}/>:<div>
         <p className=" text-gray-400 text-center text-xl my-5">or</p>
         <img
           src="upload-lama.PNG"
@@ -177,7 +183,7 @@ export const Upload = () => {
             </Button>
           </CardFooter>
         </Card>
-      </Dialog>
+      </Dialog></div>}
     </div>
   );
 };

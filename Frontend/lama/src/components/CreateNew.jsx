@@ -78,7 +78,7 @@ export const CreateNew = () => {
     className="inline-block h-40 animate-[spinner-grow_0.75s_linear_infinite] bg-current align-[-0.125em] opacity-0 motion-reduce:animate-[spinner-grow_1.5s_linear_infinite]"
     role="status"></div>)}
     </div>
-  ) : projects ? (
+  ) : projects.length ? (
     <div className=" w-10/12 m-auto">
       <div className=" flex w-full justify-between items-center my-8">
         <h1 className=" text-5xl text-center font-bold text-[#7E22CE] my-8">
