@@ -15,7 +15,7 @@ projectRouter.post("/", async (req, res) => {
 projectRouter.get('/:projectId', async (req, res) => {
   try {
 
-    const project = await Project.findById(req.params.projectId).populate('files');
+    const project = await ProjectModel.findById(req.params.projectId).populate('files');
 
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
