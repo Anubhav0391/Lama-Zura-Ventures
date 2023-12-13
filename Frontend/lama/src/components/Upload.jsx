@@ -20,6 +20,7 @@ export const Upload = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
+  const [edit, setEdit] = useState({});
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
   const [projectId, setProjectId] = useState('');
@@ -27,12 +28,16 @@ export const Upload = () => {
   const {projects}=useSelector(state=>state)
 
   useEffect(() => {
+    dispatch(getProjects())
+  }, [projects,edit.description]);
+
+  useEffect(() => {
     let projectId = JSON.parse(sessionStorage.getItem("projectId"));
     console.log(projectId)
     let files = projects.find(el=>el._id===projectId).files;
     setFiles(files);
     setProjectId(projectId)
-  }, [projects]);
+  }, [projects,edit.description]);
 
   const handleOpen = () => {
     setOpen((cur) => !cur);
@@ -59,25 +64,37 @@ export const Upload = () => {
     }
   }
 
+  function handleEdit(id) {
+    setLoading(true)
+    axios
+      .patch(`https://cloudy-jade-shift.cyclic.app/files/${id}`,{description:edit.description})
+      .then((res) => {
+        setLoading(false)
+        alert(res.data.msg);
+        setEdit({...edit,_id:''})
+      })
+      .catch((err) => alert(err.err));
+  }
+
   return (
     <div className=" py-14  w-full">
       <div className="flex items-center justify-between w-11/12 m-auto">
         <p className=" flex text-3xl text-gray-400">
           <MdOutlineHome fontSize={35} color="#7E22CE" /> /SampleProject /{" "}
-          <span className=" text-[#7E22CE]"> {desc?'Transcript':'Upload'}</span>{" "}
+          <span className=" text-[#7E22CE]"> {edit._id?'Transcript':'Upload'}</span>{" "}
         </p>
         <p>
           <IoMdNotificationsOutline fontSize={35} />
         </p>
       </div>
       <h1 className=" text-5xl font-bold text-[#7E22CE] my-8 w-11/12 m-auto">
-        {desc?'Edit Transcript':'Upload'}
+        {edit._id?'Edit Transcript':'Upload'}
       </h1>
-     { desc?<><textarea className=" w-11/12 block m-auto h-3/5 ring-1" value={desc} onChange={(e)=>setDesc(e.target.value)}>
+     { edit._id?<><textarea className=" w-11/12 block m-auto h-3/5 ring-1" value={edit.description} onChange={(e)=>setEdit({...edit,description:e.target.value})}>
 
      </textarea>
      <div className="flex justify-end w-11/12 m-auto">
-     <button className=" text-white bg-black px-5 py-3 rounded-lg mt-10" >Edit</button></div>
+     <button className=" text-white bg-black px-5 py-3 rounded-lg mt-10" onClick={()=>handleEdit(edit._id)}>{loading?<Spinner className=" m-auto"/>:'Edit'}</button></div>
      </>:<div>
       <div className=" grid  md:grid-cols-2 lg:grid-cols-3 2xl:gap-x-20 md:gap-x-10 gap-y-10 w-11/12 m-auto">
         <div
@@ -132,7 +149,7 @@ export const Upload = () => {
           </div>
         </div>
       </div>
-      {files?.length?<Table rows={files} setRows={setFiles} setEdit={setDesc}/>:<div>
+      {files?.length?<Table rows={files} setRows={setFiles} setEdit={setEdit}/>:<div>
         <p className=" text-gray-400 text-center text-xl my-5">or</p>
         <img
           src="upload-lama.PNG"

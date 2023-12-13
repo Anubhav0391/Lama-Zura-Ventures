@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 export function Table({ rows, setRows,setEdit }) {
   const head = ["Name", "Uploaded Date & Time", "Status", "Actions"];
-  
 
   function handleDelete(id) {
     axios
@@ -17,16 +16,7 @@ export function Table({ rows, setRows,setEdit }) {
       .catch((err) => alert(err.err));
   }
 
-  function handleEdit(id) {
-    axios
-      .delete(`https://cloudy-jade-shift.cyclic.app/files/${id}`)
-      .then((res) => {
-        let files=rows.filter(el=>el._id!==id)
-        setRows(files)
-        alert(res.data.msg);
-      })
-      .catch((err) => alert(err.err));
-  }
+  
 
   return (
     <Card className=" w-11/12 m-auto rounded-lg my-6 text-center">
@@ -90,7 +80,7 @@ export function Table({ rows, setRows,setEdit }) {
                     className="font-normal"
                   >
                     <div className="flex items-center cursor-pointer">
-                      <p className=" ring-1 ring-gray-400  p-3" onClick={()=>setEdit(description)}>Edit</p>
+                      <p className=" ring-1 ring-gray-400  p-3" onClick={()=>setEdit({_id,description})}>Edit</p>
                       <p
                         className=" text-red-500 ring-1 ring-gray-400  p-3"
                         onClick={() => handleDelete(_id)}
